@@ -29,7 +29,7 @@ $dotenv->load();
 $app = new App();
 
 // set up persistence
-$db = $app->setupPersistence($_ENV['DB_HOST'], $_ENV['DB_USERNAME'], $_ENV['DB_PASSWORD']);
+$db = $app->setupPersistence($_ENV['DB_HOST'], $_ENV['DB_USERNAME'], $_ENV['DB_PASSWORD'], $_ENV['DB_DATABASE']);
 
 // set up templates processing engine
 $templatesProcessor = $app->setupTemplatesProcessor(__DIR__ . '/../templates');

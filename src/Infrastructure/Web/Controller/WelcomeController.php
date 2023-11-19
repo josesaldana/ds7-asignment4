@@ -6,7 +6,6 @@ use Ds7\Asignacion4\Application\ResponseEmitter;
 use Ds7\Asignacion4\Application\TemplatesProcessor;
 use Psr\Http\Message\ResponseInterface;
 
-
 class WelcomeController extends AbstractController
 {
     public function __construct(ResponseInterface  $response,
