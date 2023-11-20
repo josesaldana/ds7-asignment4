@@ -1,0 +1,66 @@
+<h1 class="text-2xl font-bold my-5">Registrar Nuevo Viaje</h1>
+
+<form hx-post="/registrar-viaje">
+    <legend></legend>
+    <div class="join join-vertical w-full">
+        <div class="collapse collapse-arrow join-item border border-base-300">
+            <input type="radio" name="my-accordion-4" checked="checked" /> 
+            <div class="collapse-title text-xl font-medium">
+                Barco
+            </div>
+            <div class="collapse-content flex flex-col"> 
+                <div class="my-5 self-start flex flex-row w-full">
+                    <form class="form flex flex-row grow self-start" hx-post="/listar-barcos" hx-target="#lista-barcos" hx-swap="innerHTML">
+                        <label for="barco" class="label mr-3">Buscar:</label>
+                        <input type="search"
+                                name="barco" 
+                                class="input input-bordered w-30 max-w-xs mr-3"
+                                hx-trigger="keyup changed delay:500ms, search"
+                                hx-post="/listar-barcos"
+                                hx-swap="innerHTML">
+                    </form>
+                    <button class="btn self-end">Agregar Barco</button>
+                </div>
+                <div class="w-full flex flex-col overflow-x-auto" id="lista-barcos" hx-get="/listar-barcos" hx-trigger="load">
+                    <span class="loading loading-bars loading-lg"></span>
+                </div>
+                <button class="btn self-end mt-10">Siguiente</button>
+            </div>
+        </div>
+        <div class="collapse collapse-arrow join-item border border-base-300">
+            <input type="radio" name="my-accordion-4" /> 
+            <div class="collapse-title text-xl font-medium">
+                Patr&oacute;n
+            </div>
+            <div class="collapse-content flex flex-col"> 
+                <div class="my-5 self-start flex flex-row w-full">
+                    <form class="form flex flex-row grow" hx-post="/listar-patrones" hx-target="#lista-patrones" hx-swap="innerHTML">
+                        <label for="patron" class="label mr-3">Buscar:</label>
+                        <input type="search"
+                                name="patron" 
+                                class="input input-bordered w-30 max-w-xs mr-3"
+                                hx-trigger="keyup changed delay:500ms, search"
+                                hx-post="/listar-patrones"
+                                hx-swap="innerHTML">
+                    </form>
+                    <button class="btn self-end">Agregar Patr&oacute;n</button>
+                </div>
+                <div class="w-full flex flex-col overflow-x-auto" id="lista-patrones" hx-get="/listar-patrones" hx-trigger="load">
+                    <span class="loading loading-bars loading-lg"></span>
+                </div>
+            </div>
+        </div>
+        <div class="collapse collapse-arrow join-item border border-base-300">
+            <input type="radio" name="my-accordion-4" /> 
+            <div class="collapse-title text-xl font-medium">
+                Otros detalles
+            </div>
+            <div class="collapse-content flex flex-col"> 
+                <input type="date" name="fecha" placeholder="Fecha" class="input input-bordered" required>
+                <input type="time" name="hora" placeholder="Hora" class="input input-bordered mt-5" required>
+                <input type="text" name="destino" placeholder="Destino" class="input input-bordered mt-5" required>
+                <button class="btn bg-cyan-500 border-0 self-end mt-10">Finalizar</button>
+            </div>
+        </div>
+    </div>
+</form>

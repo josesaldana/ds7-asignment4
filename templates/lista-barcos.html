@@ -1,0 +1,24 @@
+{% if barcos|length == 0 %}
+<p>No hay barcos registrados</p>
+{% else %}
+<table class="table table-zebra">
+    <thead class="bg-slate-300">
+        <tr>
+            <th class="py-5 rounded-tl-lg">&nbsp;</th>
+            <th class="py-5">Matr&iacute;la</th>
+            <th class="py-5">Nombre</th>
+            <th class="py-5 rounded-tr-lg">Propietario</th>
+        </tr>
+    </thead>
+    <tbody class="bg-white dark:bg-neutral">
+        {% for barco in barcos %}
+        <tr class="hover">
+            <td><input class="radio" type="radio" name="barco" value="{{barco.matricula}}" required></td>
+            <td>{{ barco.matricula }}</td>
+            <td>{{ barco.nombre }}</td>
+            <td>{{ barco.propietario.nombreCompleto }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endif %}

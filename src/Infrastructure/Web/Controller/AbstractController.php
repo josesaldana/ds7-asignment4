@@ -42,6 +42,11 @@ abstract class AbstractController implements ErrorHandling
         $this->responseEmitter->emit($response);
     }
 
+    protected function text(string $text): void {
+        $this->response->getBody()->write($text);
+        $this->responseEmitter->emit($this->response);
+    }
+
     protected function redirect(string $redirectUri): void
     {
 

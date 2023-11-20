@@ -1,0 +1,30 @@
+{% if patrones|length == 0 %}
+<p>No hay patrones registrados</p>
+{% else %}
+<table class="table table-zebra">
+    <thead class="bg-slate-300">
+        <tr>
+            <th class="py-5 rounded-tl-lg">&nbsp;</th>
+            <th class="py-5">Nombre</th>
+            <th class="py-5">Tel&eacute;fono</th>
+            <th class="py-5">Direcci&oacute;n</th>
+            <th class="py-5 rounded-tr-lg">&Uacute;ltimo Viaje</th>
+        </tr>
+    </thead>
+    <tbody class="bg-white dark:bg-neutral">
+        {% for patron in patrones %}
+        <tr class="hover">
+            <td><input class="radio" type="radio" name="patron" value="{{patron.cedula}}" required></td>
+            <td>{{ patron.nombre }}</td>
+            <td>{{ patron.telefono }}</td>
+            <td>{{ patron.direccion }}</td>
+            <td>
+                {{ patron.obtenerUltimoViaje().destino }} en 
+                {{ patron.obtenerUltimoViaje().barco.matricula }} el d&iacute;a 
+                {{ patron.obtenerUltimoViaje().fecha }} a las {{ patron.obtenerUltimoViaje().hora }}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endif %}

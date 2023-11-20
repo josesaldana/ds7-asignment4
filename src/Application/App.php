@@ -11,15 +11,19 @@ declare(strict_types=1);
     Here is the related article by Kevin Smith: https://kevinsmith.io/modern-php-without-a-framework/
  */
 
-
 namespace Ds7\Asignacion4\Application;
 
 use DI\ContainerBuilder;
 use Ds7\Asignacion4\Config\ConfigAdapter;
 use Ds7\Asignacion4\Infrastructure\Web\Controller\WelcomeController;
-use Ds7\Asignacion4\Core\Db\PersistanceGatewayOperations;
-use Ds7\Asignacion4\Infrastructure\Db\MySQLPersistanceGateway;
-use Ds7\Asignacion4\Infrastructure\Db\PersistanceMapper;
+use Ds7\Asignacion4\Infrastructure\Web\Controller\ViajesController;
+use Ds7\Asignacion4\Infrastructure\Web\Controller\BarcosController;
+use Ds7\Asignacion4\Infrastructure\Web\Controller\PatronesController;
+use Ds7\Asignacion4\Core\Db\PersistenceGatewayOperations;
+use Ds7\Asignacion4\Infrastructure\Db\MySQLPersistenceGateway;
+use Ds7\Asignacion4\Infrastructure\Db\PersistenceMapper;
+use Ds7\Asignacion4\Core\UseCase\ListarBarcosUseCase;
+use Ds7\Asignacion4\Core\UseCase\ListarPatronesUseCase;
 use mysqli;
 use FastRoute\Dispatcher;
 use FastRoute\RouteCollector;
@@ -68,8 +72,13 @@ class App
             TemplatesProcessor::class => $templatesProcessor,
             ResponseEmitter::class => $responseEmitter,
 
-            PersistanceGatewayOperations::class => create(MySQLPersistanceGateway::class),
-            PersistanceMapper::class => create(PersistanceMapper::class)
+            mysqli::class => $db,
+
+            PersistenceMapper::class => create(PersistenceMapper::class),
+            PersistenceGatewayOperations::class => autowire(MySQLPersistenceGateway::class),
+
+            ListarBarcosUseCase::class => autowire(ListarBarcosUseCase::class),
+            ListarPatronesUseCase::class => autowire(ListarPatronesUseCase::class)
         ]);
         return $containerBuilder->build();
     }
@@ -78,6 +87,11 @@ class App
     {
         return simpleDispatcher(function (RouteCollector $r) {
             $r->get('/', WelcomeController::class);
+            $r->get('/listar-viajes', ViajesController::class);
+            $r->get('/nuevo-viaje', ViajesController::class);
+            $r->post('/crear-viaje', ViajesController::class);
+            $r->get('/listar-barcos', BarcosController::class);
+            $r->get('/listar-patrones', PatronesController::class);
         });
     }
 
@@ -98,7 +112,6 @@ class App
 
     public function run(RequestHandlerInterface $requestHandler, ContainerInterface $container): void
     {
-
         $request = $container->get(ServerRequestInterface::class);
         $requestHandler->handle($request);
     }
