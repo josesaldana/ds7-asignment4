@@ -1,6 +1,6 @@
 <h1 class="text-2xl font-bold my-5">Registrar Nuevo Viaje</h1>
 
-<form hx-post="/registrar-viaje">
+<form action="/crear-viaje" method="POST" hx-post="/crear-viaje" hx-target="#page-container" hx-swap="innerHTML">
     <legend></legend>
     <div class="join join-vertical w-full">
         <div class="collapse collapse-arrow join-item border border-base-300">
@@ -10,21 +10,21 @@
             </div>
             <div class="collapse-content flex flex-col"> 
                 <div class="my-5 self-start flex flex-row w-full">
-                    <form class="form flex flex-row grow self-start" hx-post="/listar-barcos" hx-target="#lista-barcos" hx-swap="innerHTML">
-                        <label for="barco" class="label mr-3">Buscar:</label>
+                    <div class="form flex flex-row grow self-start">
+                        <label for="busqueda-barco" class="label mr-3">Buscar:</label>
                         <input type="search"
-                                name="barco" 
+                                name="busqueda-barco" 
                                 class="input input-bordered w-30 max-w-xs mr-3"
                                 hx-trigger="keyup changed delay:500ms, search"
                                 hx-post="/listar-barcos"
                                 hx-swap="innerHTML">
-                    </form>
-                    <button class="btn self-end">Agregar Barco</button>
+                    </div>
+                    <button class="btn btn-outline self-end">Agregar Barco</button>
                 </div>
                 <div class="w-full flex flex-col overflow-x-auto" id="lista-barcos" hx-get="/listar-barcos" hx-trigger="load">
                     <span class="loading loading-bars loading-lg"></span>
                 </div>
-                <button class="btn self-end mt-10">Siguiente</button>
+                <button class="btn btn-outline self-end mt-10">Siguiente</button>
             </div>
         </div>
         <div class="collapse collapse-arrow join-item border border-base-300">
@@ -34,20 +34,21 @@
             </div>
             <div class="collapse-content flex flex-col"> 
                 <div class="my-5 self-start flex flex-row w-full">
-                    <form class="form flex flex-row grow" hx-post="/listar-patrones" hx-target="#lista-patrones" hx-swap="innerHTML">
-                        <label for="patron" class="label mr-3">Buscar:</label>
+                    <div class="form flex flex-row grow">
+                        <label for="busqueda-patron" class="label mr-3">Buscar:</label>
                         <input type="search"
-                                name="patron" 
+                                name="busqueda-patron" 
                                 class="input input-bordered w-30 max-w-xs mr-3"
                                 hx-trigger="keyup changed delay:500ms, search"
                                 hx-post="/listar-patrones"
                                 hx-swap="innerHTML">
-                    </form>
-                    <button class="btn self-end">Agregar Patr&oacute;n</button>
+                    </div>
+                    <button class="btn btn-outline self-end">Agregar Patr&oacute;n</button>
                 </div>
                 <div class="w-full flex flex-col overflow-x-auto" id="lista-patrones" hx-get="/listar-patrones" hx-trigger="load">
                     <span class="loading loading-bars loading-lg"></span>
                 </div>
+                <button class="btn btn-outline self-end mt-10">Siguiente</button>
             </div>
         </div>
         <div class="collapse collapse-arrow join-item border border-base-300">
@@ -56,9 +57,18 @@
                 Otros detalles
             </div>
             <div class="collapse-content flex flex-col"> 
-                <input type="date" name="fecha" placeholder="Fecha" class="input input-bordered" required>
-                <input type="time" name="hora" placeholder="Hora" class="input input-bordered mt-5" required>
-                <input type="text" name="destino" placeholder="Destino" class="input input-bordered mt-5" required>
+                <div class="flex flex-row items-center">
+                    <label for="hora" class="mr-5 w-16">Fecha:</label>
+                    <input type="date" name="fecha" placeholder="Fecha" class="input input-bordered w-5/12" required>
+                </div>
+                <div class="flex flex-row items-center mt-5">
+                    <label for="hora" class="mr-5 w-16">Hora:</label>
+                    <input type="time" name="hora" placeholder="Hora" class="input input-bordered w-5/12" required>
+                </div>
+                <div class="flex flex-row items-center mt-5">
+                    <label for="destino" class="mr-5 w-16">Destino:</label>
+                    <input type="text" name="destino" placeholder="Destino" class="input input-bordered w-5/12" required>
+                </div>
                 <button class="btn bg-cyan-500 border-0 self-end mt-10">Finalizar</button>
             </div>
         </div>

@@ -24,6 +24,7 @@ use Ds7\Asignacion4\Infrastructure\Db\MySQLPersistenceGateway;
 use Ds7\Asignacion4\Infrastructure\Db\PersistenceMapper;
 use Ds7\Asignacion4\Core\UseCase\ListarBarcosUseCase;
 use Ds7\Asignacion4\Core\UseCase\ListarPatronesUseCase;
+use Ds7\Asignacion4\Core\UseCase\RegistrarViajeUseCase;
 use mysqli;
 use FastRoute\Dispatcher;
 use FastRoute\RouteCollector;
@@ -78,7 +79,8 @@ class App
             PersistenceGatewayOperations::class => autowire(MySQLPersistenceGateway::class),
 
             ListarBarcosUseCase::class => autowire(ListarBarcosUseCase::class),
-            ListarPatronesUseCase::class => autowire(ListarPatronesUseCase::class)
+            ListarPatronesUseCase::class => autowire(ListarPatronesUseCase::class),
+            RegistrarViajeUseCase::class => autowire(RegistrarViajeUseCase::class)
         ]);
         return $containerBuilder->build();
     }
@@ -105,7 +107,7 @@ class App
     public function setupPersistence(string $host, string $username, string $password, $database): \mysqli
     {
         mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
-        $db = new \mysqli($host, $username, $password, $database);
+        $db = new mysqli($host, $username, $password, $database);
         $this->insertData($db);
         return $db;
     }

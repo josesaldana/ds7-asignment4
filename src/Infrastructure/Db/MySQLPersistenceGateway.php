@@ -66,6 +66,19 @@ class MySQLPersistenceGateway implements PersistenceGatewayOperations
      * @param Viaje $viaje
      */
     public function guardarViaje(Viaje $viaje): void {
-        throw new \Exception("Not implemented yet");
+        $sql = "INSERT INTO viaje (codpatron, matribarco, destino, fecha, hora) VALUES(?, ?, ?, ?, ?)";
+
+        $stmt = $this->db->prepare($sql);
+
+        $stmt->bind_param(
+            "sisss",
+            $viaje->patron->codigo,
+            $viaje->barco->matricula,
+            $viaje->destino,
+            $viaje->fecha,
+            $viaje->hora
+        );
+
+        $stmt->execute();
     }
 }

@@ -14,7 +14,7 @@
     <tbody class="bg-white dark:bg-neutral">
         {% for patron in patrones %}
         <tr class="hover">
-            <td><input class="radio" type="radio" name="patron" value="{{patron.cedula}}" required></td>
+            <td><input class="radio" type="radio" name="patron" value="{{patron.codigo}}" required></td>
             <td>{{ patron.nombre }}</td>
             <td>{{ patron.telefono }}</td>
             <td>{{ patron.direccion }}</td>

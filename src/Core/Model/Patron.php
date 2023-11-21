@@ -8,9 +8,9 @@ class Patron {
 
     public function __construct(
         public int $codigo,
-        public string $nombre,
-        public string $telefono,
-        public string $direccion
+        public ?string $nombre = NULL,
+        public ?string $telefono = NULL,
+        public ?string $direccion = NULL
     ) { }
 
     public function obtenerUltimoViaje() {

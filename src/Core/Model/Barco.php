@@ -8,8 +8,8 @@ class Barco {
 
     public function __construct(
         public string $matricula,
-        public string $nombre,
-        public int $numamarre,
-        public float $cuota
+        public ?string $nombre = NULL,
+        public ?string $numamarre = NULL,
+        public ?string $cuota = NULL
     ) { }
 }

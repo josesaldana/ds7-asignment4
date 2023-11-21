@@ -6,9 +6,10 @@
         <h1 class="text-2xl flex-grow self-end">N&aacute;utico</h1>
         <button class="self-end i-carbon-sun dark:i-carbon-moon" alt="Dark Mode" onclick="javascript:toggleDarkMode();"  />
     </div>
-    <div class="w-full flex flex-row bg-slate-500 dark:bg-neutral dark:text-neutral-content px-5 py-5">
+    <div class="w-full flex flex-row items-center bg-slate-500 dark:bg-neutral dark:text-neutral-content px-5 py-5">
         <h1 class="text-2xl flex-grow">{% block pageTitle %}{% endblock %}</h1>
-        <h2 class="text-xl justify-seld-end self-end">12:30 PM</h2>  
+        <button class="btn btn-primary mr-5" hx-get="/nuevo-viaje" hx-target="#page-container" hx-swap="innerHTML">Registrar Viaje</button>
+        <h2 class="text-xl">12:30 PM</h2>  
     </div>
 </header>
 
