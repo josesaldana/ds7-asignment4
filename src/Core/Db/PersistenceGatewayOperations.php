@@ -22,5 +22,9 @@ interface PersistenceGatewayOperations {
      * @throws GenericPersistenceError
      */
     function guardarViaje(Viaje $viaje): void;
-    
+
+    /**
+     * Obtener lista de viajes
+     */
+    function obtenerViajes(): array;
 }

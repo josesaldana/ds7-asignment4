@@ -24,6 +24,10 @@ class MySQLPersistenceGateway implements PersistenceGatewayOperations
         $this->mapper = $mapper;
     }
 
+    /**
+     * Obtener lista de Barcos
+     * @see Ds7\Asignacion4\Core\Model\Barco
+     */
     public function obtenerBarcos(): array {
         $resultados = $this->db->query("SELECT b.*, s.* FROM barco b INNER JOIN socio s ON b.cedsocio = s.cedula;");
 
@@ -32,6 +36,10 @@ class MySQLPersistenceGateway implements PersistenceGatewayOperations
         }, $resultados->fetch_all(MYSQLI_ASSOC));
     }
 
+    /**
+     * Obtener lista de Patrones
+     * @see Ds7\Asignacion4\Core\Model\Patron
+     */
     public function obtenerPatrones(): array {
         $resultados = $this->db->query("
             SELECT p.*,
@@ -63,6 +71,7 @@ class MySQLPersistenceGateway implements PersistenceGatewayOperations
     }
 
     /**
+     * Registrar un viaje
      * @param Viaje $viaje
      */
     public function guardarViaje(Viaje $viaje): void {
@@ -80,5 +89,34 @@ class MySQLPersistenceGateway implements PersistenceGatewayOperations
         );
 
         $stmt->execute();
+    }
+
+    /**
+     * Obtener lista de viajes
+     * @see Ds7\Asignacion4\Core\Model\Viaje
+     */
+    public function obtenerViajes(): array {
+        $sql = "
+            SELECT 
+                v.*, 
+                (SELECT JSON_OBJECT(
+                    'codigo', p.codigo,
+                    'nombre', p.nombre,
+                    'telefono', p.telefono
+                ) FROM conductor_patron p WHERE v.codpatron = p.codigo ) AS patron,
+                (SELECT JSON_OBJECT(
+                    'matricula', b.matricula,
+                    'nombre', b.nombre_barco,
+                    'numamarre', b.numamarre,
+                    'cuota', b.cuota
+                ) FROM barco b WHERE v.matribarco = b.matricula) AS barco
+            FROM viaje v
+        ";
+
+        $resultados = $this->db->query($sql);
+
+        return array_map(function($record) {
+            return $this->mapper->convertToViaje($record);
+        }, $resultados->fetch_all(MYSQLI_ASSOC));
     }
 }

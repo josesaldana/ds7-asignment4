@@ -65,4 +65,30 @@ class PersistenceMapper
 
         return $patron;
     }
+
+    public function convertToViaje(array $input): Viaje {
+        $viaje = new Viaje(
+            numero: $input['numero'],
+            destino: $input['destino'],
+            fecha: $input['fecha'],
+            hora: $input['hora']
+        );
+
+        $patronData = json_decode($input['patron']);
+        $viaje->patron = new Patron(
+            codigo: $patronData->codigo,
+            nombre: $patronData->nombre,
+            telefono: $patronData->telefono
+        );
+
+        $barcoData = json_decode($input['barco']);
+        $viaje->barco = new Barco(
+            matricula: $barcoData->matricula,
+            nombre: $barcoData->nombre,
+            numamarre: $barcoData->numamarre,
+            cuota: $barcoData->cuota
+        );
+
+        return $viaje;
+    }
 }

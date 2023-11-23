@@ -6,6 +6,7 @@ use Ds7\Asignacion4\Core\Model\Viaje;
 use Ds7\Asignacion4\Core\Model\Patron;
 use Ds7\Asignacion4\Core\Model\Barco;
 use Ds7\Asignacion4\Core\UseCase\RegistrarViajeUseCase;
+use Ds7\Asignacion4\Core\UseCase\ListarViajesUseCase;
 use Ds7\Asignacion4\Application\ResponseEmitter;
 use Ds7\Asignacion4\Application\TemplatesProcessor;
 use Psr\Http\Message\ServerRequestInterface;
@@ -14,14 +15,17 @@ use Psr\Http\Message\ResponseInterface;
 class ViajesController extends AbstractController
 {
     private RegistrarViajeUseCase $registrarViajeUseCase;
+    private ListarViajesUseCase $listarViajesUseCase;
 
     public function __construct(ResponseInterface  $response,
                                 TemplatesProcessor $templatesProcessor,
                                 ResponseEmitter    $responseEmitter,
-                                RegistrarViajeUseCase $registrarViajeUseCase) {
+                                RegistrarViajeUseCase $registrarViajeUseCase,
+                                ListarViajesUseCase $listarViajesUseCase) {
         parent::__construct($response, $templatesProcessor, $responseEmitter);
 
         $this->registrarViajeUseCase = $registrarViajeUseCase;
+        $this->listarViajesUseCase = $listarViajesUseCase;
     }
 
     public function __invoke(ServerRequestInterface $request): void {
@@ -35,7 +39,8 @@ class ViajesController extends AbstractController
     }
 
     public function mostrarListaDeViajes(): void {
-        $this->text("Lista de viajes");
+        $viajes = $this->listarViajesUseCase->listarViajes();
+        $this->view('lista-viajes.html', ['viajes' => $viajes]);
     }
 
     public function mostrarNuevoFormularioDeNuevoViaje(): void {
