@@ -9,9 +9,9 @@ class Viaje {
     public Barco $barco;
 
     public function __construct(
-        public int $numero,
-        public ?string $destino = NULL,
-        public ?string $fecha = NULL,
-        public ?string $hora = NULL,
+        public ?string $destino,
+        public ?string $fecha,
+        public ?string $hora,
+        public int $numero = 0
     ) { }
 }

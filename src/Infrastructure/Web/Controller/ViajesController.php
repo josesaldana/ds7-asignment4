@@ -28,6 +28,9 @@ class ViajesController extends AbstractController
         $this->listarViajesUseCase = $listarViajesUseCase;
     }
 
+    /**
+     * Método principal que despacha todas las acciones soportadas por el controlador.
+     */
     public function __invoke(ServerRequestInterface $request): void {
         if ($request->getServerParams()['REQUEST_URI'] === '/listar-viajes') {
             $this->mostrarListaDeViajes();
@@ -38,29 +41,37 @@ class ViajesController extends AbstractController
         }
     }
 
+    /**
+     * Muestra la lista de viajes registrados.
+     */
     public function mostrarListaDeViajes(): void {
         $viajes = $this->listarViajesUseCase->listarViajes();
         $this->view('lista-viajes.html', ['viajes' => $viajes]);
     }
 
+    /**
+     * Muestra el formulario para registrar nuevo viaje.
+     */
     public function mostrarNuevoFormularioDeNuevoViaje(): void {
         $this->view('nuevo-viaje.html');
     }
 
+    /**
+     * Acción para crear un nuevo viaje.
+     * 
+     * @todo Validar entrada (tipos de datos, etc) y enviar error si aplica
+     * @todo Traducir errors de dominio a errores de interfaz web
+     */
     public function crearViaje(ServerRequestInterface $request) {
         $requestBody = $request->getParsedBody();
 
-        $viaje = new Viaje(
-            numero: 1,
-            destino: $requestBody['destino'],
-            fecha: $requestBody['fecha'],
-            hora: $requestBody['hora']
+        ['barco' => $matriculaDeBarco, 'patron' => $codigoDePatron] = $requestBody;
+
+        $this->registrarViajeUseCase->registrarViaje(
+            $requestBody,
+            $matriculaDeBarco,
+            $codigoDePatron
         );
-
-        $viaje->barco = new Barco($requestBody['barco']);
-        $viaje->patron = new Patron($requestBody['patron']);
-
-        $this->registrarViajeUseCase->registrarViaje($viaje);
 
         $this->view('viaje-creado.html');
     }

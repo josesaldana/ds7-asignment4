@@ -15,13 +15,19 @@
                         <input type="search"
                                 name="busqueda-barco" 
                                 class="input input-bordered w-30 max-w-xs mr-3"
-                                hx-trigger="keyup changed delay:500ms, search"
                                 hx-post="/listar-barcos"
+                                hx-trigger="keyup changed delay:500ms, search"
+                                hx-target="#lista-barcos"
                                 hx-swap="innerHTML">
                     </div>
                     <button class="btn btn-outline self-end">Agregar Barco</button>
                 </div>
-                <div class="w-full flex flex-col overflow-x-auto" id="lista-barcos" hx-get="/listar-barcos" hx-trigger="load">
+                <div class="w-full flex flex-col overflow-x-auto"
+                        id="lista-barcos"
+                        hx-get="/listar-barcos"
+                        hx-trigger="load"
+                        hx-target="#lista-barcos"
+                        hx-swap="innerHTML">
                     <span class="loading loading-bars loading-lg"></span>
                 </div>
                 <button class="btn btn-outline self-end mt-10">Siguiente</button>
@@ -39,13 +45,19 @@
                         <input type="search"
                                 name="busqueda-patron" 
                                 class="input input-bordered w-30 max-w-xs mr-3"
-                                hx-trigger="keyup changed delay:500ms, search"
                                 hx-post="/listar-patrones"
+                                hx-trigger="keyup changed delay:500ms, search"
+                                hx-target="#lista-patrones"
                                 hx-swap="innerHTML">
                     </div>
                     <button class="btn btn-outline self-end">Agregar Patr&oacute;n</button>
                 </div>
-                <div class="w-full flex flex-col overflow-x-auto" id="lista-patrones" hx-get="/listar-patrones" hx-trigger="load">
+                <div class="w-full flex flex-col overflow-x-auto" 
+                        id="lista-patrones" 
+                        hx-get="/listar-patrones"
+                        hx-trigger="load"
+                        hx-target="#lista-patrones"
+                        hx-swap="innerHTML">
                     <span class="loading loading-bars loading-lg"></span>
                 </div>
                 <button class="btn btn-outline self-end mt-10">Siguiente</button>
