@@ -6,7 +6,7 @@
         <div class="collapse collapse-arrow join-item border border-base-300">
             <input type="radio" name="my-accordion-4" checked="checked" /> 
             <div class="collapse-title text-xl font-medium">
-                Barco
+                Selecciona el barco
             </div>
             <div class="collapse-content flex flex-col"> 
                 <div class="my-5 self-start flex flex-row w-full">
@@ -36,7 +36,7 @@
         <div class="collapse collapse-arrow join-item border border-base-300">
             <input type="radio" name="my-accordion-4" /> 
             <div class="collapse-title text-xl font-medium">
-                Patr&oacute;n
+                Selecciona el patr&oacute;n
             </div>
             <div class="collapse-content flex flex-col"> 
                 <div class="my-5 self-start flex flex-row w-full">
@@ -50,7 +50,7 @@
                                 hx-target="#lista-patrones"
                                 hx-swap="innerHTML">
                     </div>
-                    <button class="btn btn-outline self-end">Agregar Patr&oacute;n</button>
+                    <button class="btn btn-outline self-end"  onclick="agregarPatronModal.showModal()">Agregar Patr&oacute;n</button>
                 </div>
                 <div class="w-full flex flex-col overflow-x-auto" 
                         id="lista-patrones" 
@@ -66,7 +66,7 @@
         <div class="collapse collapse-arrow join-item border border-base-300">
             <input type="radio" name="my-accordion-4" /> 
             <div class="collapse-title text-xl font-medium">
-                Otros detalles
+                Otros detalles y finalizar
             </div>
             <div class="collapse-content flex flex-col"> 
                 <div class="flex flex-row items-center">
@@ -86,3 +86,43 @@
         </div>
     </div>
 </form>
+
+<dialog id="agregarPatronModal" class="modal modal-bottom sm:modal-middle">
+  <div class="modal-box">
+    <form method="dialog">
+      <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+    </form>
+    <h3 class="font-bold text-lg">Agregar Patr&oacute;n</h3>
+    <form action="/crear-patron" 
+            method="POST" 
+            hx-boost
+            hx-post="/crear-patron" 
+            hx-target="#lista-patrones" 
+            hx-swap="innerHTML"
+            class="flex flex-col w-full p-5">
+        <legend>Ingrese los datos del patr&oacute;n o conductor.</legend>
+        <div class="flex flex-row mt-3">
+            <label for="codigo" class="w-1/4 mr-3">C&oacute;digo</label>
+            <input type="text" name="codigo" class="input input-bordered w-3/4">
+        </div>
+        <div class="flex flex-row mt-3">
+            <label for="nombre" class="w-1/4 mr-3">Nombre Completo</label>
+            <input type="text" name="nombre" class="input input-bordered w-3/4">
+        </div>
+        <div class="flex flex-row mt-3">
+            <label for="telefono" class="w-1/4 mr-3">Tel&eacute;fono</label>
+            <input type="tel" name="telefono" class="input input-bordered w-3/4">
+        </div>
+        <div class="flex flex-row mt-3">
+            <label for="direccion" class="w-1/4 mr-3">Direcci&oacute;n</label>
+            <textarea name="direccion" rows="3" class="input input-bordered w-3/4 h-full"></textarea>
+        </div>
+        <button type="submit" class="btn btn-secondary btn-outline w-1/4 self-end mt-3">Guardar</button>
+    </form>
+    <!-- <div class="modal-action">
+      <form method="dialog">
+        <button class="btn">Cerrar</button>
+      </form>
+    </div> -->
+  </div>
+</dialog>

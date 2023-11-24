@@ -41,7 +41,7 @@ $responseEmitter = $app->setupResponseEmitter();
 $container = $app->setupContainer($templatesProcessor, $responseEmitter, $db);
 
 // set up route dispatcher
-$routes = $app->setupRouting();
+$routes = $app->setupRouting(isDebugEnabled: true);
 
 // set up request handling middleware
 $requestHandler = $app->setupMiddleware($routes, $container);

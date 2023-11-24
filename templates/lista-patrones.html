@@ -19,9 +19,13 @@
             <td>{{ patron.telefono }}</td>
             <td>{{ patron.direccion }}</td>
             <td>
-                {{ patron.obtenerUltimoViaje().destino }} en 
-                {{ patron.obtenerUltimoViaje().barco.matricula }} el d&iacute;a 
-                {{ patron.obtenerUltimoViaje().fecha }} a las {{ patron.obtenerUltimoViaje().hora }}
+                {% if patron.obtenerUltimoViaje() %}
+                    {{ patron.obtenerUltimoViaje().destino }} en 
+                    {{ patron.obtenerUltimoViaje().barco.matricula }} el d&iacute;a 
+                    {{ patron.obtenerUltimoViaje().fecha }} a las {{ patron.obtenerUltimoViaje().hora }}
+                {% else %}
+                -
+                {% endif %}
             </td>
         </tr>
         {% endfor %}

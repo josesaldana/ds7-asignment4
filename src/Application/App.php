@@ -31,6 +31,8 @@ use FastRoute\RouteCollector;
 use Laminas\Diactoros\Response;
 use Laminas\Diactoros\ServerRequestFactory;
 use Middlewares\FastRoute;
+use Middlewares\GzipEncoder;
+use Middlewares\Expires;
 use Middlewares\RequestHandler;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -85,7 +87,7 @@ class App
         return $containerBuilder->build();
     }
 
-    public function setupRouting(): Dispatcher
+    public function setupRouting($isDebugEnabled = false): Dispatcher
     {
         return simpleDispatcher(function (RouteCollector $r) {
             $r->get('/', WelcomeController::class);
@@ -94,12 +96,18 @@ class App
             $r->post('/crear-viaje', ViajesController::class);
             $r->get('/listar-barcos', BarcosController::class);
             $r->get('/listar-patrones', PatronesController::class);
-        });
+            $r->post('/crear-patron', PatronesController::class);
+        }, [
+            'cacheFile' => __DIR__ . '/route.cache', /* required */
+            'cacheDisabled' => $isDebugEnabled,     /* optional, enabled by default */
+        ]);
     }
 
     public function setupMiddleware(Dispatcher $routes, ContainerInterface $container): RequestHandlerInterface
     {
         $middlewareQueue[] = new FastRoute($routes);
+        $middlewareQueue[] = new GzipEncoder();
+        $middlewareQueue[] = new Expires();
         $middlewareQueue[] = new RequestHandler($container);
         return new Relay($middlewareQueue);
     }

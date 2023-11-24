@@ -41,27 +41,28 @@ class PersistenceMapper
             direccion: $input['direccion'],
         );
 
-        $dataUltimoViaje = json_decode($input['ultimo_viaje']);
-        $dataBarcoUltimoViaje = json_decode($dataUltimoViaje->barco);
+        if (isset($input['ultimo_viaje'])) {
+            $dataUltimoViaje = json_decode($input['ultimo_viaje']);
+            $ultimoViaje = new Viaje(
+                numero: $dataUltimoViaje->numero,
+                destino: $dataUltimoViaje->destino,
+                fecha: $dataUltimoViaje->fecha,
+                hora: $dataUltimoViaje->hora
+            );
 
-        $barcoDeUltimoViaje = new Barco(
-            matricula: $dataBarcoUltimoViaje->matricula,
-            nombre: $dataBarcoUltimoViaje->nombre,
-            numamarre: $dataBarcoUltimoViaje->numamarre,
-            cuota: $dataBarcoUltimoViaje->cuota
-        );
+            $dataBarcoUltimoViaje = json_decode($dataUltimoViaje->barco);
+            $barcoDeUltimoViaje = new Barco(
+                matricula: $dataBarcoUltimoViaje->matricula,
+                nombre: $dataBarcoUltimoViaje->nombre,
+                numamarre: $dataBarcoUltimoViaje->numamarre,
+                cuota: $dataBarcoUltimoViaje->cuota
+            );
 
-        $ultimoViaje = new Viaje(
-            numero: $dataUltimoViaje->numero,
-            destino: $dataUltimoViaje->destino,
-            fecha: $dataUltimoViaje->fecha,
-            hora: $dataUltimoViaje->hora
-        );
+            $ultimoViaje->patron = $patron;
+            $ultimoViaje->barco = $barcoDeUltimoViaje;
 
-        $ultimoViaje->patron = $patron;
-        $ultimoViaje->barco = $barcoDeUltimoViaje;
-
-        array_push($patron->viajes, $ultimoViaje);
+            array_push($patron->viajes, $ultimoViaje);
+        }
 
         return $patron;
     }

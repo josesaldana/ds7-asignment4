@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Ds7\Asignacion4\Core\Db;
 
 use Ds7\Asignacion4\Core\Model\Viaje;
+use Ds7\Asignacion4\Core\Model\Patron;
 
 interface PersistenceGatewayOperations {
 
@@ -27,4 +28,10 @@ interface PersistenceGatewayOperations {
      * Obtener lista de viajes
      */
     function obtenerViajes(): array;
+
+    /**
+     * Guarda un patrón
+     * @throws GenericPersistenceError
+     */
+    function guardarPatron(Patron $patron): void;
 }

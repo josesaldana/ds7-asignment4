@@ -16,23 +16,23 @@ abstract class AbstractController implements ErrorHandling
 
     public function __construct(ResponseInterface  $response,
                                 TemplatesProcessor $templatesProcessor,
-                                ResponseEmitter    $responseEmitter)
-    {
+                                ResponseEmitter    $responseEmitter) {
         $this->response = $response;
         $this->responseEmitter = $responseEmitter;
         $this->templatesProcessor = $templatesProcessor;
     }
 
-    public function error(Throwable $error)
-    {
+    public function error(Throwable $error) {
         // log error
         error_log("Error: {$error->getMessage()}", 4);
         $this->view('error.html', ['message' => $error->getMessage()], 500);
     }
 
-    protected function view(string $template, $args = [], int $status = 200,
-                                                string $contentType = 'text/html'): void
-    {
+    protected function view(
+            string $template, 
+            array $args = [], 
+            int $status = 200, 
+            string $contentType = 'text/html'): void {
         $response = $this->response->withHeader('Content-Type', $contentType)
             ->withStatus($status);
 
@@ -47,10 +47,7 @@ abstract class AbstractController implements ErrorHandling
         $this->responseEmitter->emit($this->response);
     }
 
-    protected function redirect(string $redirectUri): void
-    {
-
+    protected function redirect(string $redirectUri): void {
         header('Location: ' . $redirectUri);
-
     }
 }
