@@ -1,4 +1,4 @@
-# Asignaci&oacute;n 4 de Desarrollo de Software 7
+# Laboratorio 3 de Desarrollo de Software 7
 Aplicaci&oacute;n web en PHP para gestionar viajes de un club n&aacute;utico. Necesita conexi&oacute;n a internet.
 
 ## Pasos de Instalaci&oacute;n
