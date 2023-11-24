@@ -24,6 +24,7 @@ use Ds7\Asignacion4\Infrastructure\Db\MySQLPersistenceGateway;
 use Ds7\Asignacion4\Infrastructure\Db\PersistenceMapper;
 use Ds7\Asignacion4\Core\UseCase\ListarBarcosUseCase;
 use Ds7\Asignacion4\Core\UseCase\ListarPatronesUseCase;
+use Ds7\Asignacion4\Core\UseCase\ListarViajesUseCase;
 use Ds7\Asignacion4\Core\UseCase\RegistrarViajeUseCase;
 use mysqli;
 use FastRoute\Dispatcher;
@@ -82,6 +83,7 @@ class App
 
             ListarBarcosUseCase::class => autowire(ListarBarcosUseCase::class),
             ListarPatronesUseCase::class => autowire(ListarPatronesUseCase::class),
+            ListarViajesUseCase::class => autowire(ListarViajesUseCase::class),
             RegistrarViajeUseCase::class => autowire(RegistrarViajeUseCase::class)
         ]);
         return $containerBuilder->build();

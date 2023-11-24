@@ -81,7 +81,7 @@
                     <label for="destino" class="mr-5 w-16">Destino:</label>
                     <input type="text" name="destino" placeholder="Destino" class="input input-bordered w-5/12" required>
                 </div>
-                <button class="btn bg-cyan-500 border-0 self-end mt-10">Finalizar</button>
+                <button type="submit" class="btn bg-cyan-500 border-0 self-end mt-10">Finalizar</button>
             </div>
         </div>
     </div>
@@ -93,7 +93,8 @@
       <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
     </form>
     <h3 class="font-bold text-lg">Agregar Patr&oacute;n</h3>
-    <form action="/crear-patron" 
+    <form id="form-nuevo-patron"
+            action="/crear-patron" 
             method="POST" 
             hx-boost
             hx-post="/crear-patron" 
@@ -121,3 +122,11 @@
     </form>
   </div>
 </dialog>
+
+<script>
+    htmx.on('htmx:afterRequest', (evt) => {
+        if (evt.srcElement.id === 'form-nuevo-patron') {
+            evt.srcElement.parentNode.querySelector("form[method=dialog] > button").click();
+        }
+    });
+</script>
