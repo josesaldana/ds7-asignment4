@@ -99,8 +99,8 @@ class App
             $r->get('/listar-patrones', PatronesController::class);
             $r->post('/crear-patron', PatronesController::class);
         }, [
-            'cacheFile' => __DIR__ . '/route.cache', /* required */
-            'cacheDisabled' => $isDebugEnabled,     /* optional, enabled by default */
+            'cacheFile' => __DIR__ . '/route.cache', 
+            'cacheDisabled' => $isDebugEnabled,
         ]);
     }
 
