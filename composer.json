@@ -1,12 +1,12 @@
 {
-  "name": "example/simple",
-  "description": "description",
+  "name": "ds7/asginacion4",
+  "description": "Laboratorio de Desarrollo de Software 7 UTP",
   "minimum-stability": "stable",
-  "license": "proprietary",
+  "license": "original code belongs to gushakov@yahoo.com",
   "authors": [
     {
-      "name": "gushakov",
-      "email": "gushakov@yahoo.com"
+      "name": "jose",
+      "email": "jose.saldana2@utp.ac.pa"
     }
   ],
   "require": {
@@ -17,7 +17,6 @@
     "middlewares/request-handler": "^2.0",
     "narrowspark/http-emitter": "^2.0",
     "twig/twig": "^3.0",
-    "rakibtg/sleekdb": "^2.12",
     "vlucas/phpdotenv": "^5.6",
     "middlewares/encoder": "^2.1",
     "middlewares/cache": "^2.1"
