@@ -19,7 +19,8 @@ class RegistrarViajeUseCase {
      * Registra un nuevo viaje.
      * 
      * @throws Exception
-     * @todo Agregar validaciones de negocio (patrón y barco existente, sobreasignación de patrón, etc)
+     * @todo Agregar validaciones de negocio (patrón y barco no existente, 
+     *      sobreasignación de patrón/hora, etc)
      * @todo Cambiar Exception a domain exception
      */
     public function registrarViaje(
