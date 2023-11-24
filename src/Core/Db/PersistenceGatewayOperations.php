@@ -30,6 +30,11 @@ interface PersistenceGatewayOperations {
     function obtenerViajes(): array;
 
     /**
+     * Obtener lista de viajes
+     */
+    function buscarViajes(string $busqueda): array;
+
+    /**
      * Guarda un patrón
      * @throws GenericPersistenceError
      */

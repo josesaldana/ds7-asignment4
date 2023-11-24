@@ -122,6 +122,40 @@ class MySQLPersistenceGateway implements PersistenceGatewayOperations
     }
 
     /**
+     * Busca viajes. Por ahora, por barco
+     * 
+     * @return array of viajes
+     */
+    public function buscarViajes(string $busqueda): array {
+        $resultados = $this->db
+            ->execute_query("SELECT 
+                        v.*,
+                        barco.barco_in_json as barco,
+                        (SELECT JSON_OBJECT(
+                            'codigo', p.codigo,
+                            'nombre', p.nombre,
+                            'telefono', p.telefono
+                        ) FROM conductor_patron p WHERE v.codpatron = p.codigo) as patron
+                    FROM viaje v
+                        LEFT JOIN(
+                            SELECT b.matricula,
+                            (SELECT JSON_OBJECT(
+                                'matricula', b.matricula,
+                                'nombre', b.nombre_barco,
+                                'numamarre', b.numamarre,
+                                'cuota', b.cuota            
+                            )) AS barco_in_json
+                            FROM barco b WHERE MATCH (b.nombre_barco) AGAINST (? IN NATURAL LANGUAGE MODE)
+                        ) barco ON v.matribarco = barco.matricula
+                    WHERE barco.matricula IS NOT NULL", [$busqueda])
+            ->fetch_all(MYSQLI_ASSOC);
+
+        $viajes = array_map(fn($record) => $this->mapper->convertToViaje($record), $resultados);
+
+        return $viajes;
+    }
+
+    /**
      * Registrar un patron
      * 
      * @param Patron $patron

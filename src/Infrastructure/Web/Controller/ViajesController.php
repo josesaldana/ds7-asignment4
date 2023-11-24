@@ -32,20 +32,34 @@ class ViajesController extends AbstractController
      * Método principal que despacha todas las acciones soportadas por el controlador.
      */
     public function __invoke(ServerRequestInterface $request): void {
-        if ($request->getServerParams()['REQUEST_URI'] === '/listar-viajes') {
-            $this->mostrarListaDeViajes();
-        } else if ($request->getServerParams()['REQUEST_URI'] === '/nuevo-viaje') {
+        $path = $request->getServerParams()['REQUEST_URI'];
+
+        if ($path === "/viajes") {
+            $this->mostrarPaginaPrincipalDeViajes();
+        } else if (preg_match("/\/listar-viajes[\?.*]?/", $path)) {
+            $this->mostrarListaDeViajes($request);
+        } else if ($path === '/nuevo-viaje') {
             $this->mostrarNuevoFormularioDeNuevoViaje();
-        } else if ($request->getServerParams()['REQUEST_URI'] === '/crear-viaje') {
+        } else if ($path === '/crear-viaje') {
             $this->crearViaje($request);
         }
+    }
+
+    public function mostrarPaginaPrincipalDeViajes(): void {
+        $this->view('viajes.html', []);
     }
 
     /**
      * Muestra la lista de viajes registrados.
      */
-    public function mostrarListaDeViajes(): void {
-        $viajes = $this->listarViajesUseCase->listarViajes();
+    public function mostrarListaDeViajes(ServerRequestInterface $request): void {
+        $queryParams = $request->getQueryParams();
+
+        $viajes = 
+            (isset($queryParams['busqueda-viaje']) && !empty(trim($queryParams['busqueda-viaje']))) ?
+                $this->listarViajesUseCase->listarViajes(trim($queryParams['busqueda-viaje'])) :
+                $this->listarViajesUseCase->listarViajes();
+
         $this->view('lista-viajes.html', ['viajes' => $viajes]);
     }
 

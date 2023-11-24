@@ -9,14 +9,14 @@
     <div class="w-full flex flex-row items-center bg-slate-500 dark:bg-neutral dark:text-neutral-content px-5 py-5">
         <h1 class="text-2xl flex-grow">{% block pageTitle %}{% endblock %}</h1>
         <button class="btn btn-primary mr-5" hx-get="/nuevo-viaje" hx-target="#page-container" hx-swap="innerHTML">Registrar Viaje</button>
-        <h2 class="text-xl">12:30 PM</h2>  
+        <!-- <h2 class="text-xl">12:30 PM</h2>   -->
     </div>
 </header>
 
 <main class="flex flex-row flex-grow relative">
     <div class="w-1/6 flex flex-col self-stretch px-5 bg-base-100 light:border-r-0 dark:border-r dark:border-solid dark:border-slate-700">
         <a class="w-full px-5 py-3 mt-5 text-center cursor-pointer" 
-            hx-get="/listar-viajes"
+            hx-get="/viajes"
             hx-target="#page-container"
             hx-swap="innerHTML">Viajes</a>
 

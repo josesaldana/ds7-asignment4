@@ -91,6 +91,7 @@ class App
     {
         return simpleDispatcher(function (RouteCollector $r) {
             $r->get('/', WelcomeController::class);
+            $r->get('/viajes', ViajesController::class);
             $r->get('/listar-viajes', ViajesController::class);
             $r->get('/nuevo-viaje', ViajesController::class);
             $r->post('/crear-viaje', ViajesController::class);

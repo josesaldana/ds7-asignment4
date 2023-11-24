@@ -1,13 +1,7 @@
-<h1 class="text-2xl font-bold my-5">Lista de Viajes</h1>
-
-<div class="flex flex-col">
-    {% if viajes|length == 0 %}
-    <p>No hay viajes registrados</p>
-    {% else %}
-    <form action="/listar-viajes" method="post" hx-boost hx-post="/listar-viajes" hx-swap="innerHTML" class="flex flex-row w-full items-center justify-end">
-        <label for="busqueda-viaje" class="mr-3">Buscar:</label>
-        <input type="search" name="busqueda-viaje" hx-get="/listar-viajes" hx-trigger="keyup changed delay:500ms, search" hx-target="#page-container" hx-swap="innerHTML" class="input input-bordered w-80">
-    </form>
+{% if viajes|length == 0 %}
+<p>No hay viajes registrados que coincidan.</p>
+{% else %}
+<div class="w-full">
     <table class="table table-zebra mt-5">
         <thead class="bg-slate-300">
             <th class="py-5 rounded-tl-lg">N&uacute;mero</th>
@@ -30,5 +24,5 @@
         {% endfor %}
         </tbody>
     </table>
-    {% endif %}
 </div>
+{% endif %}
