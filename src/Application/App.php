@@ -129,15 +129,15 @@ class App
 
     private function insertData(mysqli $db) {
         if ($db->query("SELECT * FROM socio")->num_rows == 0) {
-            $db->query("INSERT INTO socio (cedula, nombre_completo, telefono, correo) VALUES('8-775-747', 'José Saldaña', '62375026', 'jose.saldana2@utp.ac.pa');");
-            $db->query("INSERT INTO socio (cedula, nombre_completo, telefono, correo) VALUES('8-000-001', 'Socio 2', '99999998', 'socio2@email.com');");
-            $db->query("INSERT INTO socio (cedula, nombre_completo, telefono, correo) VALUES('8-000-002', 'Socio 3', '99999999', 'socio3@email.com');");
+            $db->query("INSERT INTO socio (cedula, nombre_completo, telefono, correo) VALUES('7-000-000', 'Socio 1', '6000-0000', 'socio1@email.com');");
+            $db->query("INSERT INTO socio (cedula, nombre_completo, telefono, correo) VALUES('8-000-000', 'Socio 2', '9999-9998', 'socio2@email.com');");
+            $db->query("INSERT INTO socio (cedula, nombre_completo, telefono, correo) VALUES('9-000-000', 'Socio 3', '9999-9999', 'socio3@email.com');");
         }
 
         if ($db->query("SELECT * FROM barco")->num_rows == 0) {
-            $db->query("INSERT INTO barco (matricula, cedsocio, nombre_barco, numamarre, cuota) VALUES(50023, '8-775-747', 'Sea Explorer', 8, 400.00);");
-            $db->query("INSERT INTO barco (matricula, cedsocio, nombre_barco, numamarre, cuota) VALUES(12345, '8-000-001', 'Nave Socio 2', 9, 300.00);");
-            $db->query("INSERT INTO barco (matricula, cedsocio, nombre_barco, numamarre, cuota) VALUES(98765, '8-000-002', 'Nave Socio 3', 10, 800.00);");
+            $db->query("INSERT INTO barco (matricula, cedsocio, nombre_barco, numamarre, cuota) VALUES(12345, '7-000-000', 'Sea Explorer', 8, 400.00);");
+            $db->query("INSERT INTO barco (matricula, cedsocio, nombre_barco, numamarre, cuota) VALUES(67890, '8-000-000', 'Crucero 7 Mares', 9, 800.00);");
+            $db->query("INSERT INTO barco (matricula, cedsocio, nombre_barco, numamarre, cuota) VALUES(14789, '9-000-000', 'Nave Socio 3', 10, 300.00);");
         }
     }
 }
